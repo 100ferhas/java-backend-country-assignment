@@ -15,6 +15,6 @@ public class KafkaForwarder implements Forwarder {
         List<RestCountryModel> data = processor.getData();
 
         // todo to be implemented
-        throw new UnsupportedOperationException("Not implemented yet!");
+        throw new UnsupportedOperationException("KafkaForwarder is not implemented yet! please avoid using it.");
     }
 }

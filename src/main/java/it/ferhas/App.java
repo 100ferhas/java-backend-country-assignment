@@ -31,7 +31,12 @@ public class App {
         } catch (Throwable e) {
             log.error(e.getMessage(), e);
             System.err.println("Fatal unexpected error!");
-            System.err.println(e.getCause().getMessage());
+
+            if (e.getMessage() != null) {
+                System.err.println(e.getMessage());
+            } else if (e.getCause() != null && e.getCause().getMessage() != null) {
+                System.err.println(e.getCause().getMessage());
+            }
         }
     }
 
@@ -47,6 +52,7 @@ public class App {
                 System.err.println("Invalid provided forwarder type!");
                 System.err.println("Available types: " + Arrays.toString(ForwarderType.values()));
                 System.err.println("Using default " + forwarderType.name() + " forwarder...");
+                System.out.println();
 
                 log.warn("Invalid forwarder type: '{}', fallback to default: '{}'", forwarderArg, forwarderType.name().toLowerCase());
             }

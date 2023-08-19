@@ -14,7 +14,7 @@ public class ConsoleForwarder implements Forwarder {
         if (content != null) {
             System.out.println(processor.getDescription());
             System.out.println(content);
-            System.out.println(System.lineSeparator());
+            System.out.println();
         }
     }
 }

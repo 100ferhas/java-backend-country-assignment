@@ -125,7 +125,7 @@ public class DensityPopulationProcessorTest {
         expected.append("-----------------------------------------------------------------------------\n");
         expected.append("| Italy                                              |                    0 |\n");
         expected.append("| ITA                                                |                    0 |\n");
-        expected.append("-----------------------------------------------------------------------------\n");
+        expected.append("-----------------------------------------------------------------------------");
 
         assertNotNull(normalizedData, "Expected some data");
         assertEquals(expected.toString(), normalizedData, "Unexpected data");

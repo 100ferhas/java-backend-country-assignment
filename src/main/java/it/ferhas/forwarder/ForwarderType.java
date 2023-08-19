@@ -5,7 +5,5 @@ package it.ferhas.forwarder;
  */
 public enum ForwarderType {
     CONSOLE,
-    FILE,
-    REST,
-    KAFKA
+    FILE
 }

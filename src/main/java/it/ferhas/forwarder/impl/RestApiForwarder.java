@@ -15,6 +15,6 @@ public class RestApiForwarder implements Forwarder {
         List<RestCountryModel> data = processor.getData();
 
         // todo to be implemented
-        throw new UnsupportedOperationException("Not implemented yet!");
+        throw new UnsupportedOperationException("RestApiForwarder is not implemented yet! please avoid using it.");
     }
 }

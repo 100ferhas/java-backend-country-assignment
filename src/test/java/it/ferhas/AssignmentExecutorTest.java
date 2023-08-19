@@ -45,20 +45,6 @@ public class AssignmentExecutorTest {
     }
 
     @Test
-    @DisplayName("Test passing kafka forwarder argument")
-    public void testKafkaArgument() {
-        when(countryApiClient.getCountries(anyList())).thenReturn(new ArrayList<>());
-        assertThrows(UnsupportedOperationException.class, () -> executor.execute(ForwarderType.KAFKA));
-    }
-
-    @Test
-    @DisplayName("Test passing rest forwarder argument")
-    public void testRestArgument() {
-        when(countryApiClient.getCountries(anyList())).thenReturn(new ArrayList<>());
-        assertThrows(UnsupportedOperationException.class, () -> executor.execute(ForwarderType.REST));
-    }
-
-    @Test
     @DisplayName("Test Failing request")
     public void testFailingRequest() {
         when(countryApiClient.getCountries(anyList())).thenThrow(FeignException.FeignClientException.class);

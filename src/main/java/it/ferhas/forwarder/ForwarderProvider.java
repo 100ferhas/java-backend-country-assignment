@@ -16,8 +16,6 @@ public class ForwarderProvider {
     private static final Map<ForwarderType, Forwarder> forwarderTypeMapping = new HashMap<>() {{
         put(ForwarderType.CONSOLE, new ConsoleForwarder());
         put(ForwarderType.FILE, new FileForwarder());
-        put(ForwarderType.KAFKA, new KafkaForwarder());
-        put(ForwarderType.REST, new RestApiForwarder());
     }};
 
     public static Forwarder getForwarder(ForwarderType forwarderType) {

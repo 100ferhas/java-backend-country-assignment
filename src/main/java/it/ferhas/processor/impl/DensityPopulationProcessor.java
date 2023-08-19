@@ -53,7 +53,7 @@ public class DensityPopulationProcessor extends AbstractProcessor {
                 }
             });
 
-            result.append("-----------------------------------------------------------------------------\n");
+            result.append("-----------------------------------------------------------------------------");
         }
 
         return result.toString();
