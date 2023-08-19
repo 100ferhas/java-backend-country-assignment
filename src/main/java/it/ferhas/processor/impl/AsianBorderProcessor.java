@@ -49,6 +49,7 @@ public class AsianBorderProcessor extends AbstractProcessor {
     @Override
     public String getNormalizedData() {
         StringBuilder result = new StringBuilder();
+        List<RestCountryModel> data = getData();
 
         if (data == null || data.isEmpty()) {
             result.append("No countries have been found.");

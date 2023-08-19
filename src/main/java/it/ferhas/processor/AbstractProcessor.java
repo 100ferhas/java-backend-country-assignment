@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class AbstractProcessor implements Processor {
     @Getter
-    protected List<RestCountryModel> data;
+    List<RestCountryModel> data;
 
     protected abstract List<RestCountryModel> doProcess(List<RestCountryModel> countries);
 

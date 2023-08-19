@@ -1,8 +1,7 @@
 package it.ferhas.processor.impl;
 
-import it.ferhas.processor.Processor;
+import it.ferhas.processor.AbstractProcessor;
 import it.ferhas.rest_client.model.RestCountryModel;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -11,29 +10,28 @@ import java.util.Comparator;
 import java.util.List;
 
 @Slf4j
-public class DensityPopulationProcessor implements Processor {
-    @Getter
-    private List<RestCountryModel> data;
-
+public class DensityPopulationProcessor extends AbstractProcessor {
     @Override
     public String getDescription() {
         return "Sorted list of countries by population density in descending order:";
     }
 
-    public void process(List<RestCountryModel> countries) {
+    @Override
+    public List<RestCountryModel> doProcess(List<RestCountryModel> countries) {
         if (countries == null) {
-            data = null;
+            return null;
         } else {
             // sort the collection based on population density
             Comparator<RestCountryModel> densityComparator = Comparator.comparingDouble(RestCountryModel::getDensityPopulation);
             countries.sort(Collections.reverseOrder(densityComparator));
-            data = new ArrayList<>(countries);
+            return new ArrayList<>(countries);
         }
     }
 
     @Override
     public String getNormalizedData() {
         StringBuilder result = new StringBuilder();
+        List<RestCountryModel> data = getData();
 
         if (data == null || data.isEmpty()) {
             result.append("No countries have been found.");
