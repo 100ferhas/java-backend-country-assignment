@@ -49,8 +49,35 @@ Following there are the available `Processors` at this time:
 | `DensityPopulationProcessor` | Sorted list of countries by population density in descending order              |
 | `AsianBorderProcessor`       | Countries in Asia containing the most bordering countries of a different region |
 
-### Forwarders
+You can add your custom `Processor` creating your class that extends `AbstractProcessor`, this will be picked at 
+application startup.
 
+For example:
+```java
+public class EuropeanCountryProcessor extends AbstractProcessor {
+    @Override
+    public String getDescription() {
+        // define your process description
+        return "My Processor Description";
+    }
+
+    @Override
+    protected List<RestCountryModel> doProcess(List<RestCountryModel> countries) {
+        // define your custom logic
+        return countries.stream()
+                .filter(restCountryModel -> restCountryModel.getRegion().equals("Europe"))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getNormalizedData() {
+        // convert your data to string
+        return Arrays.toString(data.toArray());
+    }
+}
+```
+
+### Forwarders
 The program uses `Forwarders` to define different implementation of data extraction.
 
 Following there are the available `Forwarders` at this time:
@@ -61,6 +88,24 @@ Following there are the available `Forwarders` at this time:
 | `FileForwarder`    | write extracted data to a file, it will create a file `processed_data.txt` in your current working directory | File        | No      |
 | `KafkaForwarder`   | send extracted data to Kafka **(TO BE IMPLEMENTED)**                                                         | Kafka       | No      |
 | `RestApiForwarder` | print extracted data to a REST endpoint **(TO BE IMPLEMENTED)**                                              | REST        | No      |
+
+You can create your custom `Forwarder` creating a class that implements `Forwarder` interface. 
+
+For example:
+```java
+public class DatabaseForwarder implements Forwarder {
+    @Override
+    public void forward(Processor processor) {
+        List<RestCountryModel> data = processor.getData();
+        
+        // implement your custom logic here
+    }
+}
+```
+
+**NOTE: You must create a custom `ForwarderType` that will be used by users to specify the `Forwarder` to use.**
+
+**You must then register your custom created `Forwarder` in `ForwarderProvider` class, see existing entries**
 
 ### Project Dependencies
 Following there are the project dependencies:
@@ -82,3 +127,6 @@ Unit test were written using `JUnit` and `Mockito` to mock data while testing.
 
 #### Project Lombok
 Project Lombok is used within the project using its annotation to simplify code.
+
+#### Reflections
+Reflections library is used to initialize application at startup.
