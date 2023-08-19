@@ -8,7 +8,7 @@ To know how to modify or extend this library please read [this section](#project
 This library comes in a packaged jar file that can be executed launching it from a command line.
 
 1. Make sure you have [Java](https://www.java.com/) installed on your computer (requires version 11+)
-2. Download the [latest release](https://github.com/100ferhas/random-users-generator-java/releases/latest/download/backend-country-assignment.jar) 
+2. Download the [latest release](https://github.com/100ferhas/java-backend-country-assignment/releases/download/latest/backend-country-assignment.jar) 
 of this library
 3. Open a terminal window from the folder where you downloaded the jar file
 4. Start the application using the following command 
