@@ -14,7 +14,7 @@ of this library
 4. Start the application using the following command 
 
 ```console
-foo@bar:~$ java -jar random-user-generator.jar
+foo@bar:~$ java -jar backend-country-assignment.jar
 ```
 
 The program wil start, and you'll see by default the output results for all the existing `Processors` in your console.
@@ -26,7 +26,7 @@ You can also specify where do you want the data forwarded using the only program
 For example:
 
 ```console
-foo@bar:~$ java -jar random-user-generator.jar file
+foo@bar:~$ java -jar backend-country-assignment.jar file
 ```
 
 This will write the output to a file in your current working directory.
