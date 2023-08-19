@@ -44,11 +44,11 @@ public class DensityPopulationProcessor implements Processor {
 
             data.forEach(countryModel -> {
                 if (countryModel.getName() != null) {
-                    result.append(String.format("| %-50s | %20.2f |%n", countryModel.getName().getCommon(), countryModel.getDensityPopulation()));
+                    result.append(String.format("| %-50s | %20.0f |%n", countryModel.getName().getCommon(), countryModel.getDensityPopulation()));
 
                 } else if (countryModel.getCca3() != null) {
                     log.warn("Detected country without name, fallback to country code ({})!", countryModel.getCca3());
-                    result.append(String.format("| %-50s | %20.2f |%n", countryModel.getCca3(), countryModel.getDensityPopulation()));
+                    result.append(String.format("| %-50s | %20.0f |%n", countryModel.getCca3(), countryModel.getDensityPopulation()));
 
                 } else {
                     log.error("Detected country with neither name or country code...skipping it.");

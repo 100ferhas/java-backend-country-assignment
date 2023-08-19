@@ -123,8 +123,8 @@ public class DensityPopulationProcessorTest {
         expected.append("-----------------------------------------------------------------------------\n");
         expected.append("| Country                                            | Population Density   |\n");
         expected.append("-----------------------------------------------------------------------------\n");
-        expected.append("| Italy                                              |                 0,00 |\n");
-        expected.append("| ITA                                                |                 0,00 |\n");
+        expected.append("| Italy                                              |                    0 |\n");
+        expected.append("| ITA                                                |                    0 |\n");
         expected.append("-----------------------------------------------------------------------------\n");
 
         assertNotNull(normalizedData, "Expected some data");
