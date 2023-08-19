@@ -2,9 +2,6 @@ package it.ferhas.forwarder;
 
 import it.ferhas.forwarder.impl.ConsoleForwarder;
 import it.ferhas.forwarder.impl.FileForwarder;
-import it.ferhas.forwarder.impl.KafkaForwarder;
-import it.ferhas.forwarder.impl.RestApiForwarder;
-import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Map;
