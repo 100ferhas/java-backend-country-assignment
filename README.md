@@ -82,12 +82,12 @@ The program uses `Forwarders` to define different implementation of data extract
 
 Following there are the available `Forwarders` at this time:
 
-| Forwarder Class    | Description                                                                                                  | Forwards to | Default |
-|--------------------|--------------------------------------------------------------------------------------------------------------|-------------|---------|
-| `ConsoleForwarder` | print extracted data to console                                                                              | Console     | Yes     |
-| `FileForwarder`    | write extracted data to a file, it will create a file `processed_data.txt` in your current working directory | File        | No      |
-| `KafkaForwarder`   | send extracted data to Kafka **(TO BE IMPLEMENTED)**                                                         | Kafka       | No      |
-| `RestApiForwarder` | print extracted data to a REST endpoint **(TO BE IMPLEMENTED)**                                              | REST        | No      |
+| Forwarder Class    | Description                                                                                                  | Argument | Default |
+|--------------------|--------------------------------------------------------------------------------------------------------------|----------|---------|
+| `ConsoleForwarder` | print extracted data to console                                                                              | console  | Yes     |
+| `FileForwarder`    | write extracted data to a file, it will create a file `processed_data.txt` in your current working directory | file     | No      |
+| `KafkaForwarder`   | send extracted data to Kafka **(TO BE IMPLEMENTED)**                                                         | ---      | No      |
+| `RestApiForwarder` | print extracted data to a REST endpoint **(TO BE IMPLEMENTED)**                                              | ---      | No      |
 
 You can create your custom `Forwarder` creating a class that implements `Forwarder` interface. 
 
