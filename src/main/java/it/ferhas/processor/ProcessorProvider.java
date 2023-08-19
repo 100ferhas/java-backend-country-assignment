@@ -19,11 +19,11 @@ public class ProcessorProvider {
 
     static {
         Reflections reflections = new Reflections(ProcessorProvider.class.getPackage().getName());
-        Set<Class<?>> processorTypes = reflections.get(SubTypes.of(Processor.class).asClass());
+        Set<Class<?>> processorTypes = reflections.get(SubTypes.of(AbstractProcessor.class).asClass());
 
         for (Class<?> processorType : processorTypes) {
             try {
-                if (!Modifier.isAbstract(processorType.getModifiers()) && !processorType.isInterface()) {
+                if (!Modifier.isAbstract(processorType.getModifiers())) {
                     processors.add((Processor) processorType.getDeclaredConstructor().newInstance());
                 }
             } catch (Exception e) {
