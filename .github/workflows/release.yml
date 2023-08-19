@@ -18,7 +18,7 @@ jobs:
           cache: maven
 
       - name: Build and Test
-        run: mvn clean install
+        run: mvn clean package
 
       - uses: marvinpinto/action-automatic-releases@latest
         with:
