@@ -19,7 +19,7 @@ foo@bar:~$ java -jar backend-country-assignment.jar
 
 The program wil start, and you'll see by default the output results for all the existing `Processors` in your console.
 
-To know more about Processors refer to the [dedicated section](#processors).
+To know more about `Processors` refer to the [dedicated section](#processors).
 
 You can also specify where do you want the data forwarded using the only program argument available at this time.
 
