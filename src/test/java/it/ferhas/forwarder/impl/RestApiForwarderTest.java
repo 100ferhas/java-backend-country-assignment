@@ -11,7 +11,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("REST API Forwarder Tests")
 public class RestApiForwarderTest {
 
     @Spy

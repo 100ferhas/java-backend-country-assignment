@@ -20,7 +20,6 @@ import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("Assignment Executor Tests")
 public class AssignmentExecutorTest {
 
     @Mock

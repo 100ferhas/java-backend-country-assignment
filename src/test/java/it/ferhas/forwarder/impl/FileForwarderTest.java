@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("File Forwarder Tests")
 public class FileForwarderTest {
 
     @Spy

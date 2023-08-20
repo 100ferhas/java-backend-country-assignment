@@ -15,7 +15,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("Test finding a sorted list of countries by population density in descending order")
 public class DensityPopulationProcessorTest {
     @Spy
     @InjectMocks

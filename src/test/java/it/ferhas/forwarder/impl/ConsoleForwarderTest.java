@@ -12,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("Console Forwarder Tests")
 public class ConsoleForwarderTest {
 
     @Spy

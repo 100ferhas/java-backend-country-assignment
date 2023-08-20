@@ -15,7 +15,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("Test find country in Asia containing the most bordering countries of a different region")
 public class AsianBorderProcessorTest {
     @Spy
     @InjectMocks
