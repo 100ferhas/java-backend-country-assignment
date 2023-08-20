@@ -67,9 +67,11 @@ public class EuropeanCountryProcessor extends AbstractProcessor {
     }
 
     @Override
-    public String getNormalizedData() {
-        // convert your data to string
-        return Arrays.toString(data.toArray());
+    public void consumeNormalizedData(Consumer<String> consumer) {
+        // convert your data as text and "stream" it to forwarder using consumer.
+        // Using consumer avoid use of big Strings
+        List<RestCountryModel> data = getData();
+        data.forEach(countryModel -> consumer.accept(countryModel.getRegion()));
     }
 }
 ```
@@ -93,7 +95,14 @@ For example:
 public class DatabaseForwarder implements Forwarder {
     @Override
     public void forward(Processor processor) {
+        // get internal data from the processor
         List<RestCountryModel> data = processor.getData();
+
+        // or also if you need to get data as text
+        processor.consumeNormalizedData(text -> {
+            // write your data where you need
+            System.out.println(text);
+        });
         
         // implement your custom logic here
     }
