@@ -1,3 +1,5 @@
+[![Release Package](https://github.com/100ferhas/java-backend-country-assignment/actions/workflows/release.yml/badge.svg)](https://github.com/100ferhas/java-backend-country-assignment/actions/workflows/release.yml)
+
 # Backend Country Assignment
 This library manipulate data from an external [REST API](https://restcountries.com/) that provides information about countries. 
 This data get processed, filtered, sorted or anything you wish to implement.
