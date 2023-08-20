@@ -34,10 +34,7 @@ This will write the output to a file in your current working directory.
 For available `Forwarder` types refer to [the dedicated section](#forwarders)
 
 ## Project Design
-The design of the project is pretty straightforward, it has an `AssignmentExecutor` class that retrieve the country data 
-from the REST endpoint, and it "feed" all available `Processors` that will process this data, storing the result in an 
-internal `List` that will be passed to a `Forwarder`, which is responsible to forward this processed data somewhere.
-
+The design of the project is pretty straightforward, on startup it execute an `AssignmentExecutor` class that, using the REST client retrieves the country data from the REST endpoint, and it feed all availables `Processors` instances that will process the retrieved data, storing the result in an internal `List`. This list if then passed to a `Forwarder`, which is responsible to forward this processed data somewhere (Console, File, ...).
 
 ### Processors
 The program uses `Processor` to define different implementation of data extraction.
