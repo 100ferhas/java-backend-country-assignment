@@ -43,7 +43,7 @@ public class AssignmentExecutor {
                     RestCountryModel.Fields.cca3
             ));
 
-            log.info("Retrieved {} countries from APIs.", countries.size());
+            log.info("Retrieved {} countries from APIs.", countries == null ? 0 : countries.size());
 
         } catch (FeignException e) {
             log.error(e.getMessage(), e);

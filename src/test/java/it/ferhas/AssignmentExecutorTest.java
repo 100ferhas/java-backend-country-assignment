@@ -30,24 +30,38 @@ public class AssignmentExecutorTest {
     private AssignmentExecutor executor;
 
     @Test
-    @DisplayName("Test passing null argument")
+    @DisplayName("Test execution passing null argument")
     public void testNullArgument() {
-        when(countryApiClient.getCountries(anyList())).thenReturn(new ArrayList<>());
+        when(countryApiClient.getCountries(anyList()))
+                .thenReturn(new ArrayList<>());
+
         assertDoesNotThrow(() -> executor.execute(null));
     }
 
     @Test
-    @DisplayName("Test passing file forwarder argument")
+    @DisplayName("Test execution passing file forwarder argument")
     public void testFileArgument() {
-        when(countryApiClient.getCountries(anyList())).thenReturn(new ArrayList<>());
+        when(countryApiClient.getCountries(anyList()))
+                .thenReturn(new ArrayList<>());
+
         assertDoesNotThrow(() -> executor.execute(ForwarderType.FILE));
     }
 
     @Test
-    @DisplayName("Test Failing request")
+    @DisplayName("Test execution Failing request")
     public void testFailingRequest() {
-        when(countryApiClient.getCountries(anyList())).thenThrow(FeignException.FeignClientException.class);
+        when(countryApiClient.getCountries(anyList()))
+                .thenThrow(FeignException.FeignClientException.class);
 
-        assertThrows(AppException.class, () -> executor.execute(null));
+        assertThrows(AppException.class, () -> executor.execute(ForwarderType.CONSOLE));
+    }
+
+    @Test
+    @DisplayName("Test execution passing null to processors")
+    public void testPassingNullToProcessors() {
+        when(countryApiClient.getCountries(anyList()))
+                .thenReturn(null);
+
+        assertDoesNotThrow(() -> executor.execute(ForwarderType.CONSOLE));
     }
 }
