@@ -19,31 +19,32 @@ public class AsianBorderProcessor extends AbstractProcessor {
 
     @Override
     protected List<RestCountryModel> doProcess(List<RestCountryModel> countries) {
-        if (countries == null) {
-            return null;
-        } else {
-            // filter those invalid data having null values in countryCode or region, that are needed to find our result
-            countries = countries.stream()
-                    .filter(countryModel -> countryModel.getCca3() != null && countryModel.getRegion() != null)
-                    .collect(Collectors.toList());
+        // filter those invalid data having null values in countryCode or region fields
+        // that are required to find our results
+        countries = countries.stream()
+                .filter(countryModel -> countryModel.getCca3() != null && countryModel.getRegion() != null)
+                .collect(Collectors.toList());
 
-            // create a map with key "countryCode" and value "region" for all countries
-            Map<String, String> countryRegionMapping = countries.stream()
-                    .collect(Collectors.toMap(RestCountryModel::getCca3, RestCountryModel::getRegion));
+        // create a map with key "countryCode" and value "region" for all countries
+        // we will use this map to count non-Asian countries for each Asian country
+        Map<String, String> countryRegionMapping = countries.stream()
+                .collect(Collectors.toMap(RestCountryModel::getCca3, RestCountryModel::getRegion));
 
-            // filter Asian countries and find those (we assume can be multiple) with most borders countries not in Asia
-            return countries.stream()
-                    .filter(countryModel -> countryModel.getRegion().strip().equalsIgnoreCase(ASIA))
-                    .collect(Collectors.groupingBy(country ->
-                            country.getBorders()
-                                    .stream()
-                                    .filter(s -> !countryRegionMapping.getOrDefault(s, "").strip().equalsIgnoreCase(ASIA)).count()
-                    ))
-                    .entrySet().stream()
-                    .max(Map.Entry.comparingByKey())
-                    .map(Map.Entry::getValue)
-                    .orElse(null);
-        }
+        // filter Asian countries first
+        // then find those (we assume can be multiple) with most non-Asian borders countries
+        return countries.stream()
+                .filter(countryModel -> countryModel.getRegion().strip().equalsIgnoreCase(ASIA))
+                .collect(Collectors.groupingBy(country ->
+                        country.getBorders()
+                                .stream()
+                                .filter(countryCode -> !countryRegionMapping.getOrDefault(countryCode, "").strip().equalsIgnoreCase(ASIA))
+                                .count()
+                ))
+                .entrySet()
+                .stream()
+                .max(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue)
+                .orElse(null);
     }
 
     @Override

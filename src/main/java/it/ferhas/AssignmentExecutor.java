@@ -31,7 +31,7 @@ public class AssignmentExecutor {
         List<RestCountryModel> countries;
 
         try {
-            log.debug("Requesting country list from APIs...");
+            log.debug("Requesting country list from REST API...");
 
             // request only fields we need
             countries = countryApiClient.getCountries(List.of(
@@ -43,7 +43,7 @@ public class AssignmentExecutor {
                     RestCountryModel.Fields.cca3
             ));
 
-            log.debug("Retrieved country list from APIs.");
+            log.info("Retrieved {} countries from APIs.", countries.size());
 
         } catch (FeignException e) {
             log.error(e.getMessage(), e);
@@ -53,16 +53,13 @@ public class AssignmentExecutor {
         // retrieve correct forwarder
         Forwarder forwarder = ForwarderProvider.getForwarder(forwarderType);
 
-        log.debug("Starting processes...");
-
+        // retrieve processors
         List<Processor> processors = ProcessorProvider.getProcessors();
-        processors.forEach(processor -> {
-            log.debug("Processing {}", processor.getClass().getSimpleName());
+        log.debug("Found {} processors", processors.size());
 
+        processors.forEach(processor -> {
             processor.process(countries);
             forwarder.forward(processor);
-
-            log.info("{} has been processed successfully", processor.getClass().getSimpleName());
         });
     }
 }

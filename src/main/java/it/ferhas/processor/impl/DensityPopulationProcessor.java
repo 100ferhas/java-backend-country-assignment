@@ -18,14 +18,10 @@ public class DensityPopulationProcessor extends AbstractProcessor {
 
     @Override
     public List<RestCountryModel> doProcess(List<RestCountryModel> countries) {
-        if (countries == null) {
-            return null;
-        } else {
-            // sort the collection based on population density
-            Comparator<RestCountryModel> densityComparator = Comparator.comparingDouble(RestCountryModel::getDensityPopulation);
-            countries.sort(Collections.reverseOrder(densityComparator));
-            return new ArrayList<>(countries);
-        }
+        // sort the collection based on population density
+        Comparator<RestCountryModel> densityComparator = Comparator.comparingDouble(RestCountryModel::getDensityPopulation);
+        countries.sort(Collections.reverseOrder(densityComparator));
+        return new ArrayList<>(countries);
     }
 
     @Override
