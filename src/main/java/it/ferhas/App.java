@@ -22,7 +22,8 @@ public class App {
             AssignmentExecutor executor = new AssignmentExecutor();
             executor.execute(forwarderType);
 
-            System.out.println(ANSI_GREEN + "Application ended without errors." + ANSI_RESET);
+            System.out.println(ANSI_GREEN + "Application ended without errors" + ANSI_RESET);
+            log.info("Application ended... Exiting...");
 
         } catch (AppException e) {
             log.error(e.getMessage(), e);

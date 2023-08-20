@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -14,7 +15,7 @@ public class AsianBorderProcessor extends AbstractProcessor {
 
     @Override
     public String getDescription() {
-        return "Countries in Asia containing the most bordering countries of a different region:";
+        return "Countries in Asia containing the most bordering countries of a different region";
     }
 
     @Override
@@ -48,22 +49,23 @@ public class AsianBorderProcessor extends AbstractProcessor {
     }
 
     @Override
-    public String getNormalizedData() {
-        StringBuilder result = new StringBuilder();
+    public void consumeNormalizedData(Consumer<String> consumer) {
         List<RestCountryModel> data = getData();
 
+        consumer.accept("------------------------------------------------------------------------------------");
+        consumer.accept(String.format("| %-80s |", getDescription()));
+        consumer.accept("------------------------------------------------------------------------------------");
+
         if (data == null || data.isEmpty()) {
-            result.append("No countries have been found.");
+            consumer.accept(String.format("| %-80s |", "No countries have been found."));
         } else {
             data.forEach(countryModel -> {
                 if (countryModel.getName() != null) {
-                    result.append(countryModel.getName().getCommon());
-                    result.append(System.lineSeparator());
+                    consumer.accept(String.format("| %-80s |", countryModel.getName().getCommon()));
 
                 } else if (countryModel.getCca3() != null) {
                     log.warn("Detected country without name, fallback to country code ({})!", countryModel.getCca3());
-                    result.append(countryModel.getCca3());
-                    result.append(System.lineSeparator());
+                    consumer.accept(String.format("| %-80s |", countryModel.getCca3()));
 
                 } else {
                     log.error("Detected country with neither name or country code...skipping it.");
@@ -71,6 +73,6 @@ public class AsianBorderProcessor extends AbstractProcessor {
             });
         }
 
-        return result.toString();
+        consumer.accept("------------------------------------------------------------------------------------\n\n");
     }
 }

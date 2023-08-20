@@ -27,7 +27,7 @@ public class ProcessorProvider {
                     processors.add((Processor) processorType.getDeclaredConstructor().newInstance());
                 }
             } catch (Exception e) {
-                throw new RuntimeException("Failed to initialize application processors");
+                throw new ExceptionInInitializerError("Failed to initialize application processors");
             }
         }
     }

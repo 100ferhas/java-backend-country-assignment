@@ -8,12 +8,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Consumer;
 
 @Slf4j
 public class DensityPopulationProcessor extends AbstractProcessor {
     @Override
     public String getDescription() {
-        return "Sorted list of countries by population density in descending order:";
+        return "Sorted list of countries by population density in descending order";
     }
 
     @Override
@@ -25,33 +26,33 @@ public class DensityPopulationProcessor extends AbstractProcessor {
     }
 
     @Override
-    public String getNormalizedData() {
-        StringBuilder result = new StringBuilder();
+    public void consumeNormalizedData(Consumer<String> consumer) {
         List<RestCountryModel> data = getData();
 
+        consumer.accept("------------------------------------------------------------------------------------");
+        consumer.accept(String.format("| %-80s |", getDescription()));
+        consumer.accept("------------------------------------------------------------------------------------");
+
         if (data == null || data.isEmpty()) {
-            result.append("No countries have been found.");
+            consumer.accept(String.format("| %-80s |", "No countries have been found."));
         } else {
-            result.append("-----------------------------------------------------------------------------\n");
-            result.append(String.format("| %-50s | %-20s |%n", "Country", "Population Density"));
-            result.append("-----------------------------------------------------------------------------\n");
+            consumer.accept(String.format("| %-55s | %-22s |", "Country", "Population Density"));
+            consumer.accept("------------------------------------------------------------------------------------");
 
             data.forEach(countryModel -> {
                 if (countryModel.getName() != null) {
-                    result.append(String.format("| %-50s | %20.0f |%n", countryModel.getName().getCommon(), countryModel.getDensityPopulation()));
+                    consumer.accept(String.format("| %-55s | %22.0f |", countryModel.getName().getCommon(), countryModel.getDensityPopulation()));
 
                 } else if (countryModel.getCca3() != null) {
                     log.warn("Detected country without name, fallback to country code ({})!", countryModel.getCca3());
-                    result.append(String.format("| %-50s | %20.0f |%n", countryModel.getCca3(), countryModel.getDensityPopulation()));
+                    consumer.accept(String.format("| %-55s | %22.0f |", countryModel.getCca3(), countryModel.getDensityPopulation()));
 
                 } else {
                     log.error("Detected country with neither name or country code...skipping it.");
                 }
             });
-
-            result.append("-----------------------------------------------------------------------------");
         }
 
-        return result.toString();
+        consumer.accept("------------------------------------------------------------------------------------\n\n");
     }
 }

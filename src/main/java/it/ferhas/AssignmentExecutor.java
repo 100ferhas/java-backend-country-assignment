@@ -43,7 +43,7 @@ public class AssignmentExecutor {
                     RestCountryModel.Fields.cca3
             ));
 
-            log.info("Retrieved {} countries from APIs.", countries == null ? 0 : countries.size());
+            log.info("Retrieved {} countries from APIs", countries == null ? 0 : countries.size());
 
         } catch (FeignException e) {
             log.error(e.getMessage(), e);
@@ -55,11 +55,13 @@ public class AssignmentExecutor {
 
         // retrieve processors
         List<Processor> processors = ProcessorProvider.getProcessors();
-        log.debug("Found {} processors", processors.size());
+        log.debug("Found {} processors, starting processes...", processors.size());
 
         processors.forEach(processor -> {
             processor.process(countries);
             forwarder.forward(processor);
         });
+
+        log.info("Processor execution ended");
     }
 }

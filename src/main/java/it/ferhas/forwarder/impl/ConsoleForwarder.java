@@ -9,12 +9,10 @@ import it.ferhas.processor.Processor;
 public class ConsoleForwarder implements Forwarder {
     @Override
     public void forward(Processor processor) {
-        String content = processor.getNormalizedData();
-
-        if (content != null) {
-            System.out.println(processor.getDescription());
-            System.out.println(content);
-            System.out.println();
-        }
+        processor.consumeNormalizedData(text -> {
+            if (text != null) {
+                System.out.println(text);
+            }
+        });
     }
 }

@@ -11,8 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 public class FileForwarder implements Forwarder {
     @Override
     public void forward(Processor processor) {
-        String content = processor.getNormalizedData();
-        log.info("### {}", processor.getDescription());
-        log.info(content);
+        processor.consumeNormalizedData(text -> {
+            if (text != null) {
+                log.info(text);
+            }
+        });
     }
 }

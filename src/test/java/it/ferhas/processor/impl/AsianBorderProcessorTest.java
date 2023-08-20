@@ -170,10 +170,23 @@ public class AsianBorderProcessorTest {
     @DisplayName("Get normalized data to be print having null value")
     public void getNormalizedDataNullValue() {
         data = null;
-        String normalizedData = processor.getNormalizedData();
 
-        assertNotNull(normalizedData, "Expected some data");
-        assertEquals("No countries have been found.", normalizedData, "Unexpected data");
+        StringBuilder result = new StringBuilder();
+        processor.consumeNormalizedData(text -> {
+            result.append(text);
+            result.append(System.lineSeparator());
+        });
+
+        StringBuilder expected = new StringBuilder();
+        expected.append("------------------------------------------------------------------------------------\n");
+        expected.append("| Countries in Asia containing the most bordering countries of a different region  |\n");
+        expected.append("------------------------------------------------------------------------------------\n");
+        expected.append("| No countries have been found.                                                    |\n");
+        expected.append("------------------------------------------------------------------------------------\n\n\n");
+
+
+        assertNotNull(result.toString(), "Expected some data");
+        assertEquals(expected.toString(), result.toString(), "Unexpected data");
     }
 
     @Test
@@ -186,15 +199,21 @@ public class AsianBorderProcessorTest {
         // this country should be shown, but it doesn't have netiher name or country code so will be skipped
         data.add(RestCountryModel.builder().build());
 
-        String normalizedData = processor.getNormalizedData();
+        StringBuilder result = new StringBuilder();
+        processor.consumeNormalizedData(text -> {
+            result.append(text);
+            result.append(System.lineSeparator());
+        });
 
         StringBuilder expected = new StringBuilder();
-        expected.append(data.get(0).getName().getCommon());
-        expected.append(System.lineSeparator());
-        expected.append(data.get(1).getCca3());
-        expected.append(System.lineSeparator());
+        expected.append("------------------------------------------------------------------------------------\n");
+        expected.append("| Countries in Asia containing the most bordering countries of a different region  |\n");
+        expected.append("------------------------------------------------------------------------------------\n");
+        expected.append("| Italy                                                                            |\n");
+        expected.append("| ITA                                                                              |\n");
+        expected.append("------------------------------------------------------------------------------------\n\n\n");
 
-        assertNotNull(normalizedData, "Expected some data");
-        assertEquals(expected.toString(), normalizedData, "Unexpected data");
+        assertNotNull(result.toString(), "Expected some data");
+        assertEquals(expected.toString(), result.toString(), "Unexpected data");
     }
 }

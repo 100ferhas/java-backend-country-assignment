@@ -3,6 +3,7 @@ package it.ferhas.processor;
 import it.ferhas.rest_client.model.RestCountryModel;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Processor interface, define methods to process data retrieved from Country Rest APIs
@@ -26,9 +27,7 @@ public interface Processor {
     List<RestCountryModel> getData();
 
     /**
-     * Convert data to String to be used by forwarders that needs a text format
-     *
-     * @return String containing text of the resulting process
+     * Consume data using a Consumer, to be used by forwarders that needs a text format
      */
-    String getNormalizedData();
+    void consumeNormalizedData(Consumer<String> consumer);
 }

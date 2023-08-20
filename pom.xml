@@ -4,7 +4,7 @@
 
     <groupId>it.ferhas</groupId>
     <artifactId>backend-country-assignment</artifactId>
-    <version>1.4</version>
+    <version>1.5</version>
     <packaging>jar</packaging>
 
     <name>backend-country-assignment</name>

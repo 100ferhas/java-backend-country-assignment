@@ -8,12 +8,14 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.function.Consumer;
+
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doAnswer;
 
 @ExtendWith(MockitoExtension.class)
 public class ConsoleForwarderTest {
-
     @Spy
     private ConsoleForwarder forwarder;
 
@@ -23,7 +25,12 @@ public class ConsoleForwarderTest {
     @Test
     @DisplayName("Test forwarding to console doesn't throws errors with null values")
     public void testNull() {
-        when(processor.getNormalizedData()).thenReturn(null);
+        doAnswer(invocationOnMock -> {
+            Consumer<String> consumer = invocationOnMock.getArgument(0);
+            consumer.accept(null);
+            return null;
+        }).when(processor).consumeNormalizedData(any());
+
         assertDoesNotThrow(() -> forwarder.forward(processor));
     }
 
@@ -31,7 +38,12 @@ public class ConsoleForwarderTest {
     @Test
     @DisplayName("Test forwarding to console doesn't throws errors with values")
     public void testValue() {
-        when(processor.getNormalizedData()).thenReturn("a value");
+        doAnswer(invocationOnMock -> {
+            Consumer<String> consumer = invocationOnMock.getArgument(0);
+            consumer.accept("some value");
+            return null;
+        }).when(processor).consumeNormalizedData(any());
+
         assertDoesNotThrow(() -> forwarder.forward(processor));
     }
 }
