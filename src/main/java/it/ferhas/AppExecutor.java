@@ -19,7 +19,7 @@ import java.util.List;
  * Executor that runs all the processes configured in the processors List
  */
 @Slf4j
-public class AssignmentExecutor {
+public class AppExecutor {
     @SuppressWarnings("FieldMayBeFinal") // needs to be mocked for testing
     private RestCountryClient countryApiClient = Feign
             .builder()

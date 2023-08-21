@@ -21,15 +21,5 @@ public class RestCountryModel {
     private Long population;
     private String cca3;
 
-    // todo add missing fields if needed
-
-    public Double getDensityPopulation() {
-        // in some cases we have invalid values in response (for example area = -1)
-        // in this case we consider as 0 density population
-        if (area != null && area > 0) {
-            return population / area;
-        }
-
-        return 0D;
-    }
+    // add missing fields if needed
 }

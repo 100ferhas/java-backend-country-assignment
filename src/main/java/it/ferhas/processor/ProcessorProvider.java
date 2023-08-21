@@ -23,7 +23,7 @@ public class ProcessorProvider {
 
         for (Class<?> processorType : processorTypes) {
             try {
-                if (!Modifier.isAbstract(processorType.getModifiers())) {
+                if (!Modifier.isAbstract(processorType.getModifiers()) && !processorType.isInterface()) {
                     processors.add((Processor) processorType.getDeclaredConstructor().newInstance());
                 }
             } catch (Exception e) {

@@ -11,7 +11,6 @@ import java.util.List;
  */
 public interface RestCountryClient {
     @RequestLine("GET /all")
-    @SuppressWarnings("unused")
     List<RestCountryModel> getCountries();
 
     @RequestLine("GET /all?fields={fields}")

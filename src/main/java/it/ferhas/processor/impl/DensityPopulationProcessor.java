@@ -20,7 +20,7 @@ public class DensityPopulationProcessor extends AbstractProcessor {
     @Override
     public List<RestCountryModel> doProcess(List<RestCountryModel> countries) {
         // sort the collection based on population density
-        Comparator<RestCountryModel> densityComparator = Comparator.comparingDouble(RestCountryModel::getDensityPopulation);
+        Comparator<RestCountryModel> densityComparator = Comparator.comparingDouble(this::getDensityPopulation);
         countries.sort(Collections.reverseOrder(densityComparator));
         return new ArrayList<>(countries);
     }
@@ -41,11 +41,11 @@ public class DensityPopulationProcessor extends AbstractProcessor {
 
             data.forEach(countryModel -> {
                 if (countryModel.getName() != null) {
-                    consumer.accept(String.format("| %-55s | %22.0f |", countryModel.getName().getCommon(), countryModel.getDensityPopulation()));
+                    consumer.accept(String.format("| %-55s | %22.0f |", countryModel.getName().getCommon(), getDensityPopulation(countryModel)));
 
                 } else if (countryModel.getCca3() != null) {
                     log.warn("Detected country without name, fallback to country code ({})!", countryModel.getCca3());
-                    consumer.accept(String.format("| %-55s | %22.0f |", countryModel.getCca3(), countryModel.getDensityPopulation()));
+                    consumer.accept(String.format("| %-55s | %22.0f |", countryModel.getCca3(), getDensityPopulation(countryModel)));
 
                 } else {
                     log.error("Detected country with neither name or country code...skipping it.");
@@ -54,5 +54,15 @@ public class DensityPopulationProcessor extends AbstractProcessor {
         }
 
         consumer.accept("------------------------------------------------------------------------------------\n\n");
+    }
+
+    private Double getDensityPopulation(RestCountryModel model) {
+        // in some cases we have invalid values in response (for example area = -1)
+        // in this case we consider as 0 density population
+        if (model.getArea() != null && model.getArea() > 0) {
+            return model.getPopulation() / model.getArea();
+        }
+
+        return 0D;
     }
 }

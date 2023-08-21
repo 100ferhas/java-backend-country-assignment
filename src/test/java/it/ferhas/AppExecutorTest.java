@@ -20,14 +20,14 @@ import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class AssignmentExecutorTest {
+public class AppExecutorTest {
 
     @Mock
     private RestCountryClient countryApiClient;
 
     @Spy
     @InjectMocks
-    private AssignmentExecutor executor;
+    private AppExecutor executor;
 
     @Test
     @DisplayName("Test execution passing null argument")

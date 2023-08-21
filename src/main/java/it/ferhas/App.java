@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Arrays;
 
 /**
- * Main Class, checks if a custom forwarder was set and launch the process
+ * Main Class, checks if a custom forwarder was set by user and launch the process
  */
 @Slf4j
 public class App {
@@ -19,7 +19,7 @@ public class App {
         log.info("Started application using forwarder type: '{}'", forwarderType.name().toLowerCase());
 
         try {
-            AssignmentExecutor executor = new AssignmentExecutor();
+            AppExecutor executor = new AppExecutor();
             executor.execute(forwarderType);
 
             System.out.println(ANSI_GREEN + "Application ended without errors" + ANSI_RESET);
@@ -44,7 +44,7 @@ public class App {
     private static ForwarderType getForwarderType(String[] args) {
         ForwarderType forwarderType = ForwarderType.CONSOLE;
 
-        if (args.length != 0) {
+        if (args.length > 0) {
             String forwarderArg = args[0];
 
             try {
